@@ -66,3 +66,38 @@ public:
         return result;
     }
 };
+
+
+////////////////////// OPTIMZES
+#include <vector>
+#include <unordered_map>
+
+class Solution {
+public:
+    std::vector<int> twoSum(std::vector<int>& nums, int target) {
+        // Create an unordered_map to store the indices of the elements we have seen
+        std::unordered_map<int, int> indices;
+        // Create a vector to store the resulting indices
+        std::vector<int> result;
+
+        // Iterate through the elements of the nums vector
+        for (int i = 0; i < nums.size(); i++) {
+            // Calculate the complement of the current element needed to achieve the target
+            int complement = target - nums[i];
+            // Check if the complement exists in the unordered_map
+            if (indices.find(complement) != indices.end()) {
+                // If the complement is found, push the indices to the result vector
+                result.push_back(indices[complement]);
+                result.push_back(i);
+                // Break out of the loop since we have found the solution
+                break;
+            }
+            // If the complement does not exist in the unordered_map, store the current element and its index
+            indices[nums[i]] = i;
+        }
+
+        // Return the resulting indices
+        return result;
+    }
+};
+
